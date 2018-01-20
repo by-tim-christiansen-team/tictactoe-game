@@ -1,0 +1,253 @@
+// Colors:
+$accent-g: #2ECC71
+$accent-g-h: #28a85f
+$accent-o: #E67E22
+$accent-o-h: #cc701f
+$accent-b: #3498DB
+$accent-b-h: #2c7eb5
+$accent-r: #E74C3C
+$accent-r-h: #c24032
+$background: #F8F8F8
+$black: rgb(74, 74, 74)
+$white: #FFFFFF
+$light-grey: #D8D8D8
+
+//General Styles
+body
+  text-align: center
+  background-color: $background
+  color: $black
+  font-family: 'Roboto', sans-serif
+  margin: 0
+  letter-spacing: 0.5px
+  cursor: default
+  overflow: hidden
+  // Main Page
+  h1
+    font-size: 2em
+    font-weight: 400
+    letter-spacing: 1px
+  .heading-line
+    margin: 0.5em auto 0.5em auto
+    background-color: $black
+    height: 0.1em
+    width: 12.5em
+  h2
+    font-size: 1.25em
+    font-weight: 300
+    letter-spacing: 2px
+  .btt
+    font-size: 1.25em
+    display: inline-block
+    padding: 0.45em 2.75em 0.3em 2.75em
+    color: $white
+    text-transform: uppercase
+    letter-spacing: 3px
+    border-radius: 100px
+    margin: 1em auto 1em auto
+    cursor: pointer
+  .btt:hover, .btt:active
+    transition: all 250ms
+  a:link, a:visited
+    text-decoration: none
+    color: $black
+  a:hover, a:active
+    text-decoration: none
+  .total
+    width: 1.5em
+    height: 1.5em
+    margin: 0.25em
+    background-color: $light-grey
+    border-radius: 5em
+    display: inline-block
+  // Settings Page
+  .description
+    text-transform: uppercase
+    font-size: 1.5em
+    font-weight: 300
+    letter-spacing: 2px
+    margin-bottom: 1rem
+  .made
+    font-size: 1em
+    display: block
+    color: $black
+    margin-top: 1em
+    .heart, .coffee
+      vertical-align: text-top
+      cursor: default
+  svg
+    cursor: pointer
+    transition: all 500ms
+// Custom Style:
+body
+  // Main Page
+  .landing
+    .made
+      color: $black
+    .row.main
+      margin: 1em auto -5.5em auto
+      .play-pause
+        transform: translate(0, -8.5em)
+        cursor: pointer
+        display: inline-block
+        #play
+          transform: translate(3em, 0)
+        #pause
+          transform: translate(-3em, 0)
+    .row
+      .total:nth-of-type(4)
+        margin-right: 0.5em
+      .total:nth-of-type(5)
+        margin-left: 0.5em
+    .timeDigital
+      font-size: 1.75em
+      margin: 0 0 0.5em 0
+      font-weight: 300
+      letter-spacing: 2px
+  // Settings Page
+  .settingspage
+    position: absolute
+    height: 109vh
+    width: 100%
+    top: 0
+    color: $white
+    visibility: visible
+    opacity: 1
+    transition: visibility 0s, opacity 0.25s ease-in
+    .row
+      .set
+        display: flex
+        align-items: baseline
+        justify-content: center
+        margin-bottom: 1rem
+        .num
+          width: 2.5em
+          font-size: 2em
+          cursor: pointer
+        .session, .break
+          font-size: 2em
+          font-weight: 300
+          align-self: center
+          padding: 0 0.25em 0 0.25em
+      .box
+        background-color: $white
+        padding: 0.75em
+        display: inline-block
+        border-radius: 20px
+        .total
+          width: 3.5em
+          height: 3.5em
+          margin: 0.25em
+          display: inline-flex
+          cursor: pointer
+          transition: all 500ms
+        .total.g
+          background-color: $accent-g
+          &:hover
+            background-color: $accent-g-h
+        .total.o
+          background-color: $accent-o
+          &:hover
+            background-color: $accent-o-h
+        .total.b
+          background-color: $accent-b
+          &:hover
+            background-color: $accent-b-h
+        .total.r
+          background-color: $accent-r
+          &:hover
+            background-color: $accent-r-h
+      svg
+        fill: $white
+      svg:hover, svg:active
+        fill: $light-grey
+        color: $light-grey
+    .row.made
+      color: $white
+      & a, & a:link, &:visited
+        color: $white
+      & a:hover, & a:active
+        color: $light-grey
+
+  // Both
+  .row:first-of-type
+    padding: 1em
+    height: auto
+    .octicon
+      float: left
+    .options
+      float: right
+  .hide
+    transition: visibility 0.25s, opacity 0.25s ease-out
+    visibility: hidden
+    opacity: 0
+
+// Color Classes
+body.g
+  .color
+    color: $accent-g
+    fill: $accent-g
+  svg:hover
+    color: $accent-g-h
+    fill: $accent-g-h
+  .settingspage
+    background-color: $accent-g
+  .total.active
+    background-color: $accent-g
+  a:hover, a:active
+    color: $accent-g
+  .btt
+    background-color: $accent-g
+  .btt:hover, .btt:active
+    background-color: $accent-g-h
+body.o
+  .color
+    color: $accent-o
+    fill: $accent-o
+  svg:hover
+    color: $accent-o-h
+    fill: $accent-o-h
+  .settingspage
+    background-color: $accent-o
+  .total.active
+    background-color: $accent-o
+  a:hover, a:active
+    color: $accent-o
+  .btt
+    background-color: $accent-o
+  .btt:hover, .btt:active
+    background-color: $accent-o-h
+body.b
+  .color
+    color: $accent-b
+    fill: $accent-b
+  svg:hover
+    color: $accent-b-h
+    fill: $accent-b-h
+  .settingspage
+    background-color: $accent-b
+  .total.active
+    background-color: $accent-b
+  a:hover, a:active
+    color: $accent-b
+  .btt
+    background-color: $accent-b
+  .btt:hover, .btt:active
+    background-color: $accent-b-h
+body.r
+  .color
+    color: $accent-r
+    fill: $accent-r
+  svg:hover
+    color: $accent-r-h
+    fill: $accent-r-h
+  .settingspage
+    background-color: $accent-r
+  .total.active
+    background-color: $accent-r
+  a:hover, a:active
+    color: $accent-r
+  .btt
+    background-color: $accent-r
+  .btt:hover, .btt:active
+    background-color: $accent-r-h
