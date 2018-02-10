@@ -7,3 +7,56 @@ body {
   letter-spacing: 0.5px;
   cursor: default;
   overflow: hidden; }
+  body .container {
+    max-width: 960px;
+    margin: auto;
+    border: 1px solid green;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 5em 1fr 5em;
+    grid-template-columns: 10% 80% 10%;
+    grid-auto-flow: column; }
+    body .container header {
+      background-color: blue;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 2; }
+    body .container main {
+      background-color: red;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 2;
+      grid-row-end: 3; }
+      body .container main .player-set {
+        height: 10%; }
+      body .container main .canvas {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
+        width: 30em;
+        height: 30em;
+        margin: auto; }
+        body .container main .canvas .field {
+          display: inline-block;
+          min-width: 10em;
+          min-height: 10em;
+          background-color: #FFFFFF;
+          margin: 0; }
+    body .container footer {
+      background-color: pink;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 3;
+      grid-row-end: 4; }
