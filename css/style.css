@@ -42,9 +42,6 @@ body {
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
-        -webkit-box-align: stretch;
-            -ms-flex-align: stretch;
-                align-items: stretch;
         width: 30em;
         height: 30em;
         margin: auto; }
@@ -53,7 +50,17 @@ body {
           min-width: 10em;
           min-height: 10em;
           background-color: #FFFFFF;
-          margin: 0; }
+          margin: 0;
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center; }
+        body .container main .canvas .field:nth-of-type(2n) {
+          background-color: grey; }
+        body .container main .canvas .field:hover {
+          background-color: blue; }
     body .container footer {
       background-color: pink;
       grid-column-start: 1;
