@@ -62,16 +62,6 @@ body {
         body .container main .canvas .field:hover {
           background-color: blue; }
 
-          /* KANN ABGEÄNDERT WERDEN, NUR TESTWEISE */
-        body .container main .symbols .player1-icon, .player2-icon {
-          background-image: url("https://pbs.twimg.com/profile_images/773151694934847488/g0aE4CJ6_400x400.jpg");
-          background-size: cover;
-          height: 100px;
-          width: 100px;}
-        body .container main .symbols .player2-icon {
-          background-image: url("https://az503889.vo.msecnd.net/eventgrid/img/d012b2c5-41e9-4adb-9246-27ca54bf6441.png");}
-          /* ---------------------------- */
-
     body .container footer {
       background-color: pink;
       grid-column-start: 1;
