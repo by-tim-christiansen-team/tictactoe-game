@@ -26,6 +26,7 @@ $(document).ready(function(){
       6: "",
       7: "",
       8: "",
+      9: ""
     }
   }
 
@@ -34,12 +35,8 @@ $(document).ready(function(){
     if (gameData.fieldsIndex[pickedField] == "") {
       gameData.fieldsIndex[pickedField] = "player";
       fillField(pickedField);
-      checkWin();
-      console.log("Field available!");
+      checkPlayerWin();
       console.log(gameData.fieldsIndex);
-    }
-    else {
-      console.log("Field unavailable!");
     }
   });
 
@@ -47,8 +44,13 @@ $(document).ready(function(){
     $("." + field).text(gameData.playerChar);
   }
 
-  function checkWin() {
-    for (var h = 0; h < gameData.winArr[h].length)
+  function checkPlayerWin() {
+    for (var h = 0; h < gameData.winArr.length; h++) {
+      var val = gameData.fieldsIndex;
+      if (val[gameData.winArr[h][0]] == "player" && val[gameData.winArr[h][1]] == "player" && val[gameData.winArr[h][2]] == "player") {
+        console.log("PLAYER WINS!");
+        return true;
+      }
+    }
   }
-
  });
