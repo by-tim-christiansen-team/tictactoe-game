@@ -46,6 +46,7 @@ body {
         height: 30em;
         margin: auto; }
         body .container main .canvas .field {
+          font-family: "Comic Sans MS";
           display: inline-block;
           min-width: 10em;
           min-height: 10em;
@@ -60,7 +61,8 @@ body {
         body .container main .canvas .field:nth-of-type(2n) {
           background-color: grey; }
         body .container main .canvas .field:hover {
-          background-color: blue; }
+          background-color: blue;
+          cursor: pointer; }
 
     body .container footer {
       background-color: pink;
