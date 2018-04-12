@@ -74,9 +74,12 @@ $(document).ready(function(){
         console.log("PLAYER WINS!");
         $("." + val[game.winArr[h][0]]).css("background-color", "green");
         resetGame(false);
+        game.score.wins += 1;
+        $("#winVal").text(game.score.wins);
         return true;
       }
     }
+    checkTie();
     return false;
   }
 
@@ -86,14 +89,28 @@ $(document).ready(function(){
       if (val[game.winArr[h][0]] == "comp" && val[game.winArr[h][1]] == "comp" && val[game.winArr[h][2]] == "comp") {
         console.log("COMPUTER WINS!");
         resetGame(false);
-        return true;
+        game.score.losses += 1;
+        $("#loseVal").text(game.score.losses);
       }
     }
+    checkTie();
     $(".canvas").removeClass("disable-clicks");
+    return true;
+  }
+
+  function checkTie() {
+    for (var j = 1; j <= 9; j++) {
+      if (game.fieldsIndex[j] == "") {
+        return false;
+      }
+    }
+    resetGame(false);
+    game.score.ties += 1;
+    $("#tieVal").text(game.score.ties);
   }
 
   function resetGame(byClick) {
-    for (var i = 0; i <= 9; i++) {
+    for (var i = 1; i <= 9; i++) {
       game.fieldsIndex[i] = "";
     }
     $(".field").text("");
