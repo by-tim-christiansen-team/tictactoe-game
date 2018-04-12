@@ -31,36 +31,40 @@ $(document).ready(function(){
     }
   }
 
+  $(".reset").click(function() {
+    resetGame(true);
+  });
+
   $(".field").click(function() {
     var pickedField = $(this).attr("class").split(" ")[1];
     if (game.fieldsIndex[pickedField] == "") {
       game.fieldsIndex[pickedField] = "player";
-      fillField(pickedField);
+      $("." + pickedField).text(game.playerChar);
+      $(".canvas").addClass("disable-clicks");
       checkPlayerWin();
-      console.log(game.fieldsIndex);
+      computerTurn();
     }
-    computerTurn();
   });
 
   function computerTurn() {
-    if (game.hardMode) {
-      // minimax algorithm
-    }
-    else {
-      var availableFields = [];
-      for (var k = 1; k <= 9 ; k++) {
-        if (game.fieldsIndex[k] == "") {
-          availableFields.push(k);
-        }
+    setTimeout(function() {
+      if (game.hardMode) {
+        // minimax algorithm
       }
-      var random = Math.floor(Math.random() * ((availableFields.length - 1) - 0 + 1)) + 0;
-      game.fieldsIndex[availableFields[random]] = "comp";
-      console.log(game.fieldsIndex);
-    }
-  }
-
-  function fillField(field) {
-    $("." + field).text(game.playerChar);
+      else {
+        var availableFields = [];
+        for (var k = 1; k <= 9 ; k++) {
+          if (game.fieldsIndex[k] == "") {
+            availableFields.push(k);
+          }
+        }
+        var random = Math.floor(Math.random() * ((availableFields.length - 1) - 0 + 1)) + 0;
+        game.fieldsIndex[availableFields[random]] = "comp";
+        $("." + availableFields[random]).text("O");
+        console.log(game.fieldsIndex);
+      }
+      checkCompWin();
+    }, 750);
   }
 
   function checkPlayerWin() {
@@ -68,9 +72,38 @@ $(document).ready(function(){
       var val = game.fieldsIndex;
       if (val[game.winArr[h][0]] == "player" && val[game.winArr[h][1]] == "player" && val[game.winArr[h][2]] == "player") {
         console.log("PLAYER WINS!");
+        $("." + val[game.winArr[h][0]]).css("background-color", "green");
+        resetGame(false);
         return true;
       }
     }
+    return false;
+  }
+
+  function checkCompWin() {
+    for (var h = 0; h < game.winArr.length; h++) {
+      var val = game.fieldsIndex;
+      if (val[game.winArr[h][0]] == "comp" && val[game.winArr[h][1]] == "comp" && val[game.winArr[h][2]] == "comp") {
+        console.log("COMPUTER WINS!");
+        resetGame(false);
+        return true;
+      }
+    }
+    $(".canvas").removeClass("disable-clicks");
+  }
+
+  function resetGame(byClick) {
+    for (var i = 0; i <= 9; i++) {
+      game.fieldsIndex[i] = "";
+    }
+    $(".field").text("");
+    if (byClick) {
+      showPopUp();
+    }
+  }
+
+  function showPopUp() {
+    alert("game resetting");
   }
 
  });

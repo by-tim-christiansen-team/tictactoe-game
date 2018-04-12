@@ -30,6 +30,8 @@ body {
       grid-row-end: 3; }
       body .container main .player-set {
         height: 10%; }
+      body .container main .disable-clicks {
+      pointer-events: none; }
       body .container main .canvas {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -63,6 +65,10 @@ body {
         body .container main .canvas .field:hover {
           background-color: blue;
           cursor: pointer; }
+    body .container main .reset {
+      background-color: white;
+      font-size: 1.25em;
+      margin-top: 10px;}
 
     body .container footer {
       background-color: pink;
