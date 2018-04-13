@@ -2,7 +2,7 @@ $(document).ready(function(){
   // declare variables
   var game = {
     "playerChar": "X",
-    "hardMode": false,
+    "hardMode": true,
     "score": {
       "wins": 0,
       "ties": 0,
@@ -18,17 +18,7 @@ $(document).ready(function(){
       [1, 5, 9],
       [3, 5, 7]
     ],
-    "fieldsIndex": {
-      1: "",
-      2: "",
-      3: "",
-      4: "",
-      5: "",
-      6: "",
-      7: "",
-      8: "",
-      9: ""
-    }
+    "board": ["0","1","2","3","4","5","6","7","8"]
   }
 
   $(".reset").click(function() {
@@ -36,82 +26,92 @@ $(document).ready(function(){
   });
 
   $(".field").click(function() {
-    var pickedField = $(this).attr("class").split(" ")[1];
-    if (game.fieldsIndex[pickedField] == "") {
-      game.fieldsIndex[pickedField] = "player";
-      $("." + pickedField).text(game.playerChar);
+    var pickedField = $(this).attr("id");
+    console.log(pickedField);
+    if (game.board[pickedField] !== "comp" && game.board[pickedField] !== "player") {
+      game.board[pickedField] = "player";
+      console.log(game.board);
+      $("#" + pickedField).text(game.playerChar);
       $(".canvas").addClass("disable-clicks");
-      checkPlayerWin();
+      if (checkWin(game.board, "player")) {
+        console.log("PLAYER WINS.");
+        game.score.wins += 1;
+        $("#winVal").text(game.score.wins)
+        setTimeout(function() {
+          resetGame(false);
+          return true;
+        },750);
+      }
+      checkTie();
       computerTurn();
     }
   });
 
   function computerTurn() {
     setTimeout(function() {
+
+      var availableFields = game.board.filter(s => s != "player" && s != "comp");
+      console.log("Available: " + availableFields);
+
       if (game.hardMode) {
+        console.log("hard mode");
         // minimax algorithm
+        var aiPicked = minimax(game.board, "comp").index;
+        $("#" + aiPicked).text("O");
+        game.board[aiPicked] = "comp";
+
       }
       else {
-        var availableFields = [];
-        for (var k = 1; k <= 9 ; k++) {
-          if (game.fieldsIndex[k] == "") {
-            availableFields.push(k);
-          }
-        }
         var random = Math.floor(Math.random() * ((availableFields.length - 1) - 0 + 1)) + 0;
-        game.fieldsIndex[availableFields[random]] = "comp";
-        $("." + availableFields[random]).text("O");
-        console.log(game.fieldsIndex);
+        game.board[availableFields[random]] = "comp";
+        $("#" + availableFields[random]).text("O");
+        console.log(game.board);
       }
-      checkCompWin();
+      if (checkWin(game.board, "comp")) {
+        console.log("COMPUTER WINS.");
+        game.score.losses += 1;
+        $("#loseVal").text(game.score.losses)
+        setTimeout(function() {
+          resetGame(false);
+        },750);
+      }
+      checkTie();
+      $(".canvas").removeClass("disable-clicks");
     }, 750);
   }
 
-  function checkPlayerWin() {
-    for (var h = 0; h < game.winArr.length; h++) {
-      var val = game.fieldsIndex;
-      if (val[game.winArr[h][0]] == "player" && val[game.winArr[h][1]] == "player" && val[game.winArr[h][2]] == "player") {
-        console.log("PLAYER WINS!");
-        $("." + val[game.winArr[h][0]]).css("background-color", "green");
-        resetGame(false);
-        game.score.wins += 1;
-        $("#winVal").text(game.score.wins);
-        return true;
-      }
+  function checkWin(board, player) {
+    if (
+      (board[0] == player && board[1] == player && board[2] == player) ||
+      (board[3] == player && board[4] == player && board[5] == player) ||
+      (board[6] == player && board[7] == player && board[8] == player) ||
+      (board[0] == player && board[3] == player && board[6] == player) ||
+      (board[1] == player && board[4] == player && board[7] == player) ||
+      (board[2] == player && board[5] == player && board[8] == player) ||
+      (board[0] == player && board[4] == player && board[8] == player) ||
+      (board[2] == player && board[4] == player && board[6] == player)
+    ) {
+      return true;
+    } else {
+      return false;
     }
-    checkTie();
-    return false;
-  }
-
-  function checkCompWin() {
-    for (var h = 0; h < game.winArr.length; h++) {
-      var val = game.fieldsIndex;
-      if (val[game.winArr[h][0]] == "comp" && val[game.winArr[h][1]] == "comp" && val[game.winArr[h][2]] == "comp") {
-        console.log("COMPUTER WINS!");
-        resetGame(false);
-        game.score.losses += 1;
-        $("#loseVal").text(game.score.losses);
-      }
-    }
-    checkTie();
-    $(".canvas").removeClass("disable-clicks");
-    return true;
   }
 
   function checkTie() {
-    for (var j = 1; j <= 9; j++) {
-      if (game.fieldsIndex[j] == "") {
-        return false;
-      }
+    if (game.board.filter(s => s != "player" && s != "comp").length == 0) {
+      console.log("IT'S A TIE.");
+      setTimeout(function() {
+        resetGame(false);
+      }, 750);
+      game.score.ties += 1;
+      $("#tieVal").text(game.score.ties);
     }
-    resetGame(false);
-    game.score.ties += 1;
-    $("#tieVal").text(game.score.ties);
   }
 
   function resetGame(byClick) {
-    for (var i = 1; i <= 9; i++) {
-      game.fieldsIndex[i] = "";
+    for (var i = 0; i <= 8; i++) {
+      game.board[i] = i;
+      console.log(game.board);
     }
     $(".field").text("");
     if (byClick) {
@@ -123,4 +123,79 @@ $(document).ready(function(){
     alert("game resetting");
   }
 
- });
+  function emptyIndexies(altBoard){
+    return altBoard.filter(s => s != "player" && s != "comp");
+  }
+
+  function minimax(newBoard, player){
+  //add one to function calls
+
+  //available spots
+  var availSpots = emptyIndexies(newBoard);
+
+  // checks for the terminal states such as win, lose, and tie and returning a value accordingly
+  if (checkWin(newBoard, "player")){
+     return {score:-10};
+  }
+	else if (checkWin(newBoard, "comp")){
+    return {score:10};
+	}
+  else if (availSpots.length === 0){
+  	return {score:0};
+  }
+
+// an array to collect all the objects
+  var moves = [];
+
+  // loop through available spots
+  for (var i = 0; i < availSpots.length; i++){
+    //create an object for each and store the index of that spot that was stored as a number in the object's index key
+    var move = {};
+  	move.index = newBoard[availSpots[i]];
+
+    // set the empty spot to the current player
+    newBoard[availSpots[i]] = player;
+
+    //if collect the score resulted from calling minimax on the opponent of the current player
+    if (player == "comp"){
+      var result = minimax(newBoard, "player");
+      move.score = result.score;
+    }
+    else{
+      var result = minimax(newBoard, "comp");
+      move.score = result.score;
+    }
+
+    //reset the spot to empty
+    newBoard[availSpots[i]] = move.index;
+
+    // push the object to the array
+    moves.push(move);
+  }
+
+// if it is the computer's turn loop over the moves and choose the move with the highest score
+  var bestMove;
+  if(player === "comp"){
+    var bestScore = -10000;
+    for(var i = 0; i < moves.length; i++){
+      if(moves[i].score > bestScore){
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  }else{
+
+// else loop over the moves and choose the move with the lowest score
+    var bestScore = 10000;
+    for(var i = 0; i < moves.length; i++){
+      if(moves[i].score < bestScore){
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  }
+
+// return the chosen move (object) from the array to the higher depth
+return moves[bestMove];
+}
+});
