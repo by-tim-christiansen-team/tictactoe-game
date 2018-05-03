@@ -48,6 +48,7 @@ body {
         height: 30em;
         margin: auto; }
         body .container main .canvas .field {
+          background-size: cover;
           font-family: "Comic Sans MS";
           display: inline-block;
           min-width: 10em;

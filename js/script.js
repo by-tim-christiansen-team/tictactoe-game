@@ -22,7 +22,7 @@ $(document).ready(function(){
     if (game.board[pickedField] !== "comp" && game.board[pickedField] !== "player") {
       game.board[pickedField] = "player";
       console.log(game.board);
-      $("#" + pickedField).text(game.playerChar);
+      $("#" + pickedField).css("background-image", "url('https://vignette.wikia.nocookie.net/silicon-valley/images/3/33/Richard_Hendricks.jpg/revision/latest?cb=20150526104602')");
       $(".canvas").addClass("disable-clicks");
 
       if (checkWin(game.board, "player")) {
@@ -48,13 +48,13 @@ $(document).ready(function(){
       if (game.hardMode) {
         // minimax algorithm
         var aiPicked = minimax(game.board, "comp").index;
-        $("#" + aiPicked).text("O");
+        $("#" + aiPicked).css("background-image", "url('https://pbs.twimg.com/profile_images/768354090912927748/Bi1x_H10_400x400.jpg')");
         game.board[aiPicked] = "comp";
       }
       else {
         var random = Math.floor(Math.random() * ((availableFields.length - 1) - 0 + 1)) + 0;
         game.board[availableFields[random]] = "comp";
-        $("#" + availableFields[random]).text("O");
+        $("#" + availableFields[random]).css("background-image", "url('https://pbs.twimg.com/profile_images/768354090912927748/Bi1x_H10_400x400.jpg')");
       }
       if (checkWin(game.board, "comp")) {
         game.score.losses += 1;
@@ -99,7 +99,7 @@ $(document).ready(function(){
     for (var i = 0; i <= 8; i++) {
       game.board[i] = i;
     }
-    $(".field").text("");
+    $(".field").css("background-image", "url('')");
     if (byClick) {
       showPopUp();
     }
